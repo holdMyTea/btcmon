@@ -4,3 +4,6 @@
 [submodule "btcmon-frontend"]
 	path = btcmon-frontend
 	url = https://github.com/rise42/btcmon-frontend.git
+[submodule "btcmon-price-scrapper"]
+	path = btcmon-price-scrapper
+	url = https://github.com/rise42/btcmon-price-scrapper.git
