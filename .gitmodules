@@ -7,3 +7,9 @@
 [submodule "btcmon-price-scrapper"]
 	path = btcmon-price-scrapper
 	url = https://github.com/rise42/btcmon-price-scrapper.git
+[submodule "btcmon-db-service"]
+	path = btcmon-db-service
+	url = https://github.com/rise42/btcmon-db-service
+[submodule "btcmon-data-provider"]
+	path = btcmon-data-provider
+	url = https://github.com/rise42/btcmon-data-provider
