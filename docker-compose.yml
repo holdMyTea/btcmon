@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+
+  price_scrapper_0:
+    build:
+      context: btcmon-price-scrapper/
+      dockerfile: Dockerfile
+    depends_on:
+      - db_service
+    links:
+      - db_service:db_service
+    environment:
+      - PUT_HOST=db_service
+      - PUT_PORT=8080
+      - DATASET=0
+      - INTERVAL=1
+    tty: true
+
+  price_scrapper_1:
+    build:
+      context: btcmon-price-scrapper/
+      dockerfile: Dockerfile
+    depends_on:
+      - db_service
+    links:
+      - db_service:db_service
+    environment:
+      - PUT_HOST=db_service
+      - PUT_PORT=8080
+      - DATASET=1
+      - INTERVAL=1
+    tty: true
+
+  db_service:
+    build:
+      context: btcmon-db-service/
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    links:
+      - db:db
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8080
+      - DB_NAME=btcmon
+      - DB_HOST=db
+    tty: true
+
+  db:
+    build:
+      context: .
+      dockerfile: db_Dockerfile
+    tty: true
