@@ -13,3 +13,6 @@
 [submodule "btcmon-data-provider"]
 	path = btcmon-data-provider
 	url = https://github.com/rise42/btcmon-data-provider
+[submodule "btcmon-config"]
+	path = btcmon-config
+	url = https://github.com/rise42/btcmon-config.git

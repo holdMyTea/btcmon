@@ -1,5 +1,8 @@
 version: "3"
 
+# TODO: separate template for price-scrappers
+# TODO: minified envar file
+
 services:
 
   price_scrapper_0:
@@ -8,13 +11,17 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db_service
+      - config
     links:
       - db_service:db_service
+      - config:config
     environment:
       - PUT_HOST=db_service
       - PUT_PORT=8080
       - DATASET=0
       - INTERVAL=1
+      - CONFIG_HOST=config
+      - CONFIG_PORT=8080
     tty: true
 
   price_scrapper_1:
@@ -23,13 +30,17 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db_service
+      - config
     links:
       - db_service:db_service
+      - config:config
     environment:
       - PUT_HOST=db_service
       - PUT_PORT=8080
       - DATASET=1
       - INTERVAL=1
+      - CONFIG_HOST=config
+      - CONFIG_PORT=8080
     tty: true
 
   db_service:
@@ -38,15 +49,28 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
+      - config
     ports:
       - "8080:8080"
     links:
       - db:db
+      - config:config
     environment:
       - APP_HOST=0.0.0.0
       - APP_PORT=8080
       - DB_NAME=btcmon
       - DB_HOST=db
+      - CONFIG_HOST=config
+      - CONFIG_PORT=8080
+    tty: true
+
+  config:
+    build:
+      context: btcmon-config/
+      dockerfile: Dockerfile
+    environment:
+      - APP_HOST=0.0.0.0
+      - APP_PORT=8080
     tty: true
 
   db:
