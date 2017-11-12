@@ -11,7 +11,7 @@ services:
       - config
     environment:
       - DATASET=0
-      - INTERVAL=1
+      - INTERVAL=3
     env_file:
       - ./global-variables.env
     tty: true
@@ -25,7 +25,23 @@ services:
       - config
     environment:
       - DATASET=1
-      - INTERVAL=1
+      - INTERVAL=3
+    env_file:
+      - ./global-variables.env
+    tty: true
+
+  api-gateway:
+    build:
+      context: btcmon-api-gateway/
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+      - config  # pointless for the moment
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_HOST=api-gateway
+      - APP_PORT=8080
     env_file:
       - ./global-variables.env
     tty: true
@@ -38,7 +54,7 @@ services:
       - db
       - config
     ports:
-      - "8080:8080"
+      - "8082:8082"
     environment:
       - DB_NAME=btcmon
       - DB_HOST=db
@@ -50,6 +66,8 @@ services:
     build:
       context: btcmon-config/
       dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
     env_file:
       - ./global-variables.env
     tty: true
