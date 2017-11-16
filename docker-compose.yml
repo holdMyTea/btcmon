@@ -11,7 +11,7 @@ services:
       - config
     environment:
       - DATASET=0
-      - INTERVAL=3
+      - INTERVAL=20
     env_file:
       - ./global-variables.env
     tty: true
@@ -25,7 +25,7 @@ services:
       - config
     environment:
       - DATASET=1
-      - INTERVAL=3
+      - INTERVAL=20
     env_file:
       - ./global-variables.env
     tty: true
@@ -36,7 +36,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
-      - config  # pointless for the moment
+      - config
     ports:
       - "8080:8080"
     environment:
